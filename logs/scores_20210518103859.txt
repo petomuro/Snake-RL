@@ -1,0 +1,2 @@
+no_of_layers5_no_of_neurons192.0_snake_lr1e-05_gamma0.9_score12677
+Params: {'no_of_layers': 5.0, 'no_of_neurons': 192.0, 'lr': 1e-05, 'gamma': 0.9}

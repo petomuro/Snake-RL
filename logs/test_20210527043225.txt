@@ -1,0 +1,2 @@
+start_time20210525162028_record_score37_total_score141621
+Values: {start_time: 20210525162028, record_score: 37, total_score: 141621}
