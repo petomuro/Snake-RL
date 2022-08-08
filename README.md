@@ -38,6 +38,3 @@ When the training is complete, a file will be created in the results folder.
 If you want to create graph you need to: 
   1. change in `helper.py` --> `with open('results/results_name.csv') as results_file:` --> e.g. `with open('results/results20210525162028.csv') as results_file:`
   2. run `helper.py`
-
-## Task lists
-- [ ] Refactor source code
