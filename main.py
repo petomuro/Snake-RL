@@ -82,7 +82,10 @@ class Agent:
         angle, snake_direction_vector_normalized, food_distance_vector_normalized = self.get_angle(
             snake_direction_vector, food_distance_vector, game)
 
-        return np.array([int(obstacle_front), int(obstacle_right), int(obstacle_left), snake_direction_vector_normalized[0], food_distance_vector_normalized[0], snake_direction_vector_normalized[1], food_distance_vector_normalized[1], angle])
+        return np.array(
+            [int(obstacle_front), int(obstacle_right), int(obstacle_left), snake_direction_vector_normalized[0],
+             food_distance_vector_normalized[0], snake_direction_vector_normalized[1],
+             food_distance_vector_normalized[1], angle])
 
     def get_snake_direction_vector(self, snake, length):
         return np.array(snake[length - 1]) - np.array(snake[length - 2])
@@ -90,7 +93,8 @@ class Agent:
     def get_obstacles(self, snake, snake_direction_vector, length, game):
         point = np.array(snake[length - 1]) + np.array(snake_direction_vector)
 
-        return point.tolist() in snake[:-1] or point[0] < 0 or point[1] < 0 or point[0] >= game.DISPLAY_WIDHT or point[1] >= game.DISPLAY_HEIGHT
+        return point.tolist() in snake[:-1] or point[0] < 0 or point[1] < 0 or point[0] >= game.DISPLAY_WIDHT or point[
+            1] >= game.DISPLAY_HEIGHT
 
     def turn_vector_to_the_left(self, vector):
         return np.array([-vector[1], vector[0]])
@@ -109,10 +113,13 @@ class Agent:
             norm_of_food_distance_vector = game.SNAKE_BLOCK
 
         snake_direction_vector_normalized = snake_direction_vector / \
-            norm_of_snake_direction_vector
-        food_distance_vector_normalized = food_distance_vector/norm_of_food_distance_vector
-        angle = m.atan2(food_distance_vector_normalized[1] * snake_direction_vector_normalized[0] - food_distance_vector_normalized[0] * snake_direction_vector_normalized[1],
-                        food_distance_vector_normalized[1] * snake_direction_vector_normalized[1] + food_distance_vector_normalized[0] * snake_direction_vector_normalized[0]) / m.pi
+                                            norm_of_snake_direction_vector
+        food_distance_vector_normalized = food_distance_vector / norm_of_food_distance_vector
+        angle = m.atan2(
+            food_distance_vector_normalized[1] * snake_direction_vector_normalized[0] - food_distance_vector_normalized[
+                0] * snake_direction_vector_normalized[1],
+            food_distance_vector_normalized[1] * snake_direction_vector_normalized[1] + food_distance_vector_normalized[
+                0] * snake_direction_vector_normalized[0]) / m.pi
 
         return angle, snake_direction_vector_normalized, food_distance_vector_normalized
 
@@ -153,7 +160,7 @@ class Agent:
 
     def remember(self, observation, final_move, reward, new_observation, done):
         self.memory.append((observation, final_move, reward,
-                           new_observation, done))  # Kolekcia (Tuple)
+                            new_observation, done))  # Kolekcia (Tuple)
 
     def replay(self, model):
         if len(self.memory) < self.batch_size:
@@ -171,7 +178,7 @@ class Agent:
 
         # Bellmanova rovnica (Bellman Equation)
         targets = rewards + self.gamma * \
-            (np.amax(model.predict_on_batch(new_observations), axis=1))*(1-dones)
+                  (np.amax(model.predict_on_batch(new_observations), axis=1)) * (1 - dones)
         targets_full = model.predict_on_batch(observations)
 
         ind = np.array([i for i in range(self.batch_size)])
